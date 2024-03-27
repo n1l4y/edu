@@ -35,7 +35,7 @@ npm start
 port number for application port like localhost:3030
 
 ```.env
-PORT="any_port_number"
+PORT="3030"
 ```
 
 **database config**
