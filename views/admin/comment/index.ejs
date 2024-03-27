@@ -1,0 +1,35 @@
+<%- include('../layout/admin_header.ejs', { title : 'Comments' }) %>
+<style>
+   .order-1{
+      order: -1 !important;
+   }
+</style>
+<section class="comments">
+   <h1 class="heading">User comments</h1>
+   <div class="show-comments">
+      <% if (comments?.length) { %>
+      <% comments?.forEach(comment => { %>
+         <div class="box <%= comment.tutor_id === tutor_id ? 'order:-1': ''%>">
+            <div class="content">
+               <span><%= comment.date %></span>
+                <p><%= comment.title  %></p>
+                <a href="/admin/<%= comment.video?.id  %>">view content</a>
+            </div>
+            <p class="text">
+                <%= comment.comment  %>
+            </p>
+            <a href="/admin/comments/delete/<%= comment.id  %>" 
+            onclick="return confirm('delete this comment?');"
+            class="inline-delete-btn"
+            >
+                delete comment
+            </a>
+        </div>
+      <% }) %>
+      <% } else { %>
+      <p class="empty">No comments added yet!</p>
+      <% } %>
+   </div>
+</section>
+
+<%- include('../layout/admin_footer.ejs') %>

@@ -1,0 +1,57 @@
+<%- include('layout/header.ejs',{ title: 'Tutor Profile' }) %>
+
+<!-- teachers profile section starts  -->
+
+<section class="tutor-profile">
+
+   <h1 class="heading">Tutor profile details</h1>
+
+   <div class="details">
+      <div class="tutor">
+         <img src="/uploaded_files/<%= tutor.image  %>" alt="<%= tutor.name  %>">
+         <h3><%= tutor.name  %></h3>
+         <span><%= tutor.profession  %></span>
+      </div>
+      <div class="flex">
+         <p>Total playlists : <span><%= playlists?.length  %></span></p>
+         <p>Total videos : <span><%= total_video  %></span></p>
+         <p>Total likes : <span><%= total_like  %></span></p>
+         <p>Total comments : <span><%= total_comment  %></span></p>
+      </div>
+   </div>
+
+</section>
+
+<!-- teachers profile section ends -->
+
+<section class="courses">
+
+   <h1 class="heading">Latest courese</h1>
+
+   <div class="box-container">
+      <% if (playlists?.length > 0) { %>
+      <% playlists.forEach(list => { %>
+         <div class="box">
+            <div class="tutor">
+               <img src="/uploaded_files/<%= list?.tutor.image %>" alt="">
+               <div>
+                  <h3><%= list?.tutor.name  %></h3>
+                  <span><%= list?.tutor.date %></span>
+               </div>
+            </div>
+            <img src="/uploaded_files/<%= list.thumb  %>" class="thumb" alt="">
+            <h3 class="title"><%= list.title  %></h3>
+            <a href="/playlist/<%= list.id  %>" class="inline-btn">view playlist</a>
+         </div>
+      <% }) %>
+      <% } else { %>
+      <p class="empty">No courses added yet!</p>
+      <% } %>
+      
+   </div>
+
+</section>
+
+<!-- courses section ends -->
+
+<%- include('layout/footer.ejs') %>

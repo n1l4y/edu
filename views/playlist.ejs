@@ -1,0 +1,84 @@
+<%- include('layout/header.ejs',{ title: 'Playlist' }) %>
+
+<!-- playlist section starts  -->
+
+<section class="playlist">
+
+   <h1 class="heading">Playlist details</h1>
+
+   <div class="row">
+      <% if (playlist && tutor) { %>
+         <div class="col">
+            <form action="/playlist/save" method="post" class="save-list">
+               <input type="hidden" name="playlist_id" value="<%= playlist.id %>">
+               <% if (totol_bookmarked > 0) { %>
+                  <button type="submit" name="save_list">
+                     <i class="fas fa-bookmark"></i>
+                     <span>Saved</span>
+                  </button>
+               <% } else { %>
+                  <% if (user) { %>
+                     <button type="submit" name="">
+                        <i class="far fa-bookmark"></i>
+                        <span>Save playlist</span>
+                     </button>
+                  <% }  %>
+               <% } %>
+            </form>
+            <div class="thumb">
+               <span><%= videos?.length  %> videos</span>
+               <img src="/uploaded_files/<%= playlist.thumb %>" alt="">
+            </div>
+         </div>
+   
+         <div class="col">
+            <div class="tutor">
+               <img src="/uploaded_files/<%= tutor?.image %>" alt="">
+               <div>
+                  <h3><%= tutor?.name %></h3>
+                  <span><%= tutor?.profession %></span>
+               </div>
+            </div>
+            <div class="details">
+               <h3><%= playlist.title %></h3>
+               <p><%= playlist.description %></p>
+               <div class="date">
+                  <i class="fas fa-calendar"></i>
+                  <span><%= playlist.date %></span>
+               </div>
+            </div>
+         </div>
+      <% } else { %>
+      <p class="empty">The playlist was not found!</p>
+      <% } %>
+   </div>
+
+</section>
+
+<!-- playlist section ends -->
+
+<!-- videos container section starts  -->
+
+<section class="videos-container">
+
+   <h1 class="heading">Playlist videos</h1>
+
+   <div class="box-container">
+      <% if (videos?.length > 0) { %>
+      <% videos.forEach(video => { %>
+         <a href="/watch/<%= video.id %>" class="box">
+            <i class="fas fa-play"></i>
+            <img src="/uploaded_files/<%= video.thumb %>" alt="">
+            <h3><%= video.title %></h3>
+         </a>
+      <% }) %>
+      <% } else { %>
+      <p class="empty">No videos added yet!</p>
+      <% } %>
+   </div>
+
+</section>
+
+<!-- videos container section ends -->
+
+<%- include('layout/footer.ejs') %>

@@ -1,0 +1,72 @@
+<%- include('../layout/admin_header.ejs', { title : 'Playlist' }) %>
+
+<section class="playlists">
+
+   <div style="display:flex; justify-content: space-between;" class="heading">
+      <div><h3 style="padding: 0;">Your playlists</h3></div>
+      <div><a href="/admin/playlists/add" class="btn">Ad playlist</a></div>
+   </div>
+
+   <div class="box-container">      
+      <% if (playlists?.length > 0) { %>
+      <% playlists.forEach(list => { %>
+         <% const statusClass = list.status === 'active' ? 'color:limegreen' : 'color:red' %>
+         <div class="box">
+            <div class="flex">
+               <div>
+                  <i class="fas fa-circle-dot" style="<%= statusClass %>"></i>
+                  <span style="<%= statusClass %>">
+                     <%= list.status %>
+                  </span></div>
+               <div>
+                  <i class="fas fa-calendar"></i>
+                  <span><%= list.date  %></span>
+               </div>
+            </div>
+            <div class="thumb">
+               <span>Videos: <%= list.total_videos  %> </span>
+               <img src="/uploaded_files/<%= list.thumb  %>" alt="">
+            </div>
+            <h3 class="title"><%= list.title  %></h3>
+            <p class="description"><%= list.description  %></p>
+            <div class="flex-btn">
+               <a href="/admin/playlists/edit/<%= list.id  %>" class="option-btn">update</a>
+               <a 
+                  href="/admin/playlists/delete/<%= list.id  %>" 
+                  class="delete-btn" 
+                  onclick="return confirm('delete this playlist?');">
+                  delete 
+               </a>
+            </div>
+            <a href="/admin/playlists/view/<%= list.id  %>" class="btn">view playlist</a>
+         </div>
+      <% }) %>
+      <% } else { %>
+      <p class="empty">No playlist added yet!</p>
+      <% } %>
+
+
+   </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+   document.querySelectorAll('.playlists .box-container .box .description').forEach(content => {
+      if(content.innerHTML.length > 100) content.innerHTML = content.innerHTML.slice(0, 100);
+   });
+</script>
+
+<%- include('../layout/admin_footer.ejs') %>

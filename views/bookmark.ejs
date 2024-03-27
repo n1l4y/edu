@@ -1,0 +1,45 @@
+<%- include('layout/header.ejs',{ title: 'Bookmark' }) %>
+
+<!-- courses section starts  -->
+
+<section class="courses">
+
+   <h1 class="heading">Bookmarked playlists</h1>
+
+   <div class="box-container">
+      <% if (bookmarks && bookmarks.length > 0 ) { %>
+      <% bookmarks.forEach(item => { %>      
+         <% if (item.playlists && item.playlists.length > 0) { %>
+         <% item.playlists.forEach(playlist => { %>
+            <% if (playlist.tutor) { %>
+               <div class="box">
+                  <div class="tutor">
+                     <img src="/uploaded_files/<%= playlist.tutor.image  %>" alt="">
+                     <div>
+                        <h3><%= playlist.tutor.name  %></h3>
+                        <span><%= playlist.date  %></span>
+                     </div>
+                  </div>
+                  <img src="/uploaded_files/<%= playlist.thumb %>" class="thumb" alt="">
+                  <h3 class="title"><%= playlist.title  %></h3>
+                  <a href="/playlist/<%= playlist.id  %>" class="inline-btn">view playlist</a>
+               </div>
+            <% } else { %>
+               <p class="empty">Tutor not found!</p>
+            <% } %>
+
+         <% }) %>
+         <% } else { %>
+         <p class="empty">No courses found!</p>
+         <% } %>
+
+      <% }) %>
+      <% } else { %>
+      <p class="empty">Nothing bookmarked yet!</p>
+      <% } %>
+   </div>
+
+</section>
+<!-- end bookmark sections  -->
+
+<%- include('layout/footer.ejs') %>

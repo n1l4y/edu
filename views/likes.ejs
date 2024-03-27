@@ -1,0 +1,39 @@
+<%- include('layout/header.ejs',{ title: 'Likes' }) %>
+
+<!-- courses section starts  -->
+
+<section class="liked-videos">
+
+   <h1 class="heading">Liked videos</h1>
+
+   <div class="box-container">
+
+ <% if (likes && likes.length > 0 ) { %>
+      <% likes.forEach(like => { %>      
+         <div class="box">
+            <div class="tutor">
+               <img src="/uploaded_files/<%= like.tutor?.image  %>" alt="">
+               <div>
+                  <h3><%= like.tutor?.name  %></h3>
+                  <span><%= like.content?.date  %></span>
+               </div>
+            </div>
+            <img src="/uploaded_files/<%= like.content?.thumb  %>" alt="" class="thumb">
+            <h3 class="title"><%= like.content?.title  %></h3>
+            <div class="flex-btn">
+               <a href="/watch/<%= like.content?.id  %>" class="inline-btn">watch video</a>
+               <a href="/likes/update/<%= like.id  %>" class="inline-delete-btn"> delete </a>
+            </div>
+         </div>
+      <% }) %>
+      <% } else { %>
+      <p class="empty">Nothing added to likes yet!</p>
+      <% } %>
+   </div>
+
+</section>
+
+
+<!-- like section end  -->
+
+<%- include('layout/footer.ejs') %>

@@ -1,0 +1,24 @@
+
+<%- include('layout/header.ejs', { title : 'Login' }) %>
+
+<!-- login section starts  -->
+
+<section class="form-container">
+
+   <form action="/admin/login" method="post" class="login">
+      <h3>Welcome back!</h3>
+      <p>Your email <span>*</span></p>
+      <input type="email" name="email" placeholder="Enter your email" maxlength="20" required class="box">
+      <p>Your password <span>*</span></p>
+      <input type="password" name="password" placeholder="Enter your password" maxlength="20" required class="box">
+      <p class="link">
+         Don't have an account? <a href="/admin/register">Register now</a>
+      </p>
+      <input type="submit" value="Login"  class="btn">
+   </form>
+
+</section>
+
+<!-- login section ends -->
+
+<%- include('layout/footer.ejs') %>

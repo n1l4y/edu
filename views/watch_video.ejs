@@ -1,0 +1,96 @@
+<%- include('layout/header.ejs',{ title: 'Watch video' }) %>
+
+<!-- watch video section starts  -->
+
+<section class="watch">
+   <% if (video && tutor) { %>
+      <div class="video-details">
+         <video src="/uploaded_files/<%= video.video %>" class="video" poster="/uploaded_files/<%= video.thumb %>" controls autoplay></video>
+         <h3 class="title"><%= video.title %></h3>
+         <div class="info">
+            <p>
+               <i class="fas fa-calendar"></i>
+               <span><%= video.date %></span>
+            </p>
+            <p><i class="fas fa-heart"></i><span><%= total_likes %> likes</span></p>
+         </div>
+         <div class="tutor">
+            <img src="/uploaded_files/<%= tutor.image %>" alt="">
+            <div>
+               <h3><%= tutor.name %></h3>
+               <span><%= tutor.profession %></span>
+            </div>
+         </div>
+         <div  class="flex">
+            <a href="/playlist/<%= video.playlist_id %>" class="inline-btn">
+               view playlist
+            </a>
+            <% if (liked) { %>
+               <a href="/likes/update/<%= video.id  %>" class="inline-option-btn" style="background-color: green;"><i class="far fa-heart"></i><span> liked</span></a>
+            <% } else { %>
+               <a href="/likes/update/<%= video.id  %>" class="inline-option-btn"><i class="far fa-heart"></i><span>like</span></a>
+            <% } %>
+         </div>
+         <div class="description"><p><%= video.description %></p></div>
+      </div>
+   <% } else { %>
+      <p class="empty">No videos added yet!</p>
+   <% } %>
+</section>
+
+<!-- watch video section ends -->
+
+<!-- comments section starts  -->
+
+<section class="comments">
+
+   <h1 class="heading">Add a comment</h1>
+
+   <form action="/comments/store" method="post" class="add-comment">
+      <input type="hidden" name="video_id" value="<%= video?.id  %>">
+      <textarea name="comment" required placeholder="write your comment..." maxlength="1000" cols="30" rows="10"></textarea>
+      <input type="submit" value="add comment" class="inline-btn">
+      <% if (!user) { %>
+       <p><font color="red">You must be logged in to comment</font></p>
+      <% } %>
+   </form>
+
+   <h1 class="heading">User comments</h1>
+
+   
+   <div class="show-comments">
+      <% if (comments && comments.length > 0) { %>
+      <% comments.forEach(comment => { %>
+
+         <div class="box <%= comment.id === user.id ? 'order:-1' : '' %>" >
+            <div class="user">
+               <img src="/uploaded_files/<%= comment.user?.image %>" alt="">
+               <div>
+                  <h3><%= comment.user?.name %></h3>
+                  <span><%= comment.date %></span>
+               </div>
+            </div>
+            <p class="text"><%= comment.comment %></p>
+            <% if (comment.user) { %>
+               <a href="/comments/edit/<%= comment.id  %>" class="inline-option-btn">
+                  edit comment
+               </a>
+               <a href="/comments/delete/<%= comment.id  %>" class="inline-delete-btn"
+                  onclick="return confirm('delete this comment?');"
+                  >
+                  delete comment
+               </a>
+            <% } %>
+         </div>
+       
+      <% }) %>       
+      <% } else { %>
+      <p class="empty">No comments added yet!</p>
+      <% } %>
+   </div>
+   
+</section>
+
+<!-- comments section ends -->
+
+<%- include('layout/footer.ejs') %>

@@ -1,0 +1,49 @@
+
+<%- include('layout/header.ejs', { title : 'Register' }) %>
+
+<!-- register section starts  -->
+
+<section class="form-container">
+
+   <form class="register" action="/admin/register" method="POST" enctype="multipart/form-data">
+      <h3>Register new</h3>
+      <div class="flex">
+         <div class="col">
+            <p>your name <span>*</span></p>
+            <input type="text" name="name" placeholder="eneter your name" maxlength="50" required class="box">
+            <p>Your profession <span>*</span></p>
+            <select name="profession" class="box" required>
+               <option value="" disabled selected>-- Select your profession</option>
+               <option value="developer">developer</option>
+               <option value="desginer">desginer</option>
+               <option value="musician">musician</option>
+               <option value="biologist">biologist</option>
+               <option value="teacher">teacher</option>
+               <option value="engineer">engineer</option>
+               <option value="lawyer">lawyer</option>
+               <option value="accountant">accountant</option>
+               <option value="doctor">doctor</option>
+               <option value="journalist">journalist</option>
+               <option value="photographer">photographer</option>
+            </select>
+            <p>Your email <span>*</span></p>
+            <input type="email" name="email" placeholder="enter your email" maxlength="20" required class="box">
+         </div>
+         <div class="col">
+            <p>Your password <span>*</span></p>
+            <input type="password" name="password" placeholder="enter your password" maxlength="20" required class="box">
+            <p>Confirm password <span>*</span></p>
+            <input type="password" name="confirm_password" placeholder="confirm your password" maxlength="20" required class="box">
+            <p>select pic <span>*</span></p>
+            <input type="file" name="image" accept="image/*" required class="box">
+         </div>
+      </div>
+      <p class="link">Already have an account? <a href="/admin/login">Login now</a></p>
+      <input type="submit"  value="register now" class="btn">
+   </form>
+
+</section>
+
+<!-- registe section ends -->
+
+<%- include('layout/footer.ejs') %>
